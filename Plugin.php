@@ -62,9 +62,7 @@
 	 * 手气不错核心函数
 	 *
 	 * @access public
-	 * @param $content
-	 * @param $class
-	 * @return $content
+	 * @return void
 	 */
 	public static function goodluck() {
 		$db = Typecho_Db::get();
@@ -73,7 +71,7 @@
 			->where('type = ?', 'post')
 			->where('created <= unix_timestamp(now())', 'post');
 		$result = $db->fetchAll($sql);
-		$max_id = $result[0]['MAX(`cid`)'];
+		$max_id = $result[0]['MAX(`cid`)'];//POST类型数据最大的CID
 		$sql = $db->select('MIN(cid)')->from('table.contents')
 			->where('status = ?','publish')
 			->where('type = ?', 'post')
